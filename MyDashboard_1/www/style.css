@@ -1,0 +1,61 @@
+/* ============ GENERAL STYLES ============ */
+body {
+  background-color: #f8f8f8;
+  font-family: 'Lato', sans-serif;
+  color: #333;
+  padding-bottom: 30px;
+}
+
+/* ============ NAVBAR ============ */
+.navbar {
+  background-color: #800020 !important; /* deep wine red */
+}
+
+.navbar-brand, .navbar-nav > li > a {
+  color: white !important;
+}
+
+.navbar-nav > .active > a {
+  background-color: #A52A2A !important; /* lighter wine when active */
+  color: white !important;
+}
+
+/* ============ HEADINGS ============ */
+h1, h2, h3, h4 {
+  color: #800020;
+}
+
+/* ============ CARD COMPONENT ============ */
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  background-color: #800020;
+  color: white;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #A52A2A;
+  color: white;
+}
+
+/* ============ TABLES ============ */
+.table {
+  background-color: white;
+}
+/* ============ CARD COMPONENT ============ */
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
