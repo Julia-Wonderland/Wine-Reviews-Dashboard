@@ -9,7 +9,7 @@ shinyServer(function(input, output, session) {
   # Exploration visualizations
   output$explore_plot1 <- renderPlot({ plot(iris[, 1:2]) })
   output$explore_plot2 <- renderPlot({ boxplot(iris$Sepal.Length ~ iris$Species) })
-  output$explore_plot3 <- renderPlot({ plot(iris[, 3:4]) })
+  output$explore_plot3 <- renderForceNetwork({ explore_plot3(input$opacity_slider) })
   
   # Comparison plot
   output$comparison_plot <- renderPlot({ plot(mtcars$mpg, mtcars$hp) })
