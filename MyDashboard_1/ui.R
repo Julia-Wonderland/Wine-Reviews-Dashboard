@@ -88,7 +88,9 @@ shinyUI(
                  column(6,
                         div(class = "card", 
                             actionButton("fullscreen3", "Fullscreen"),
-                            plotOutput("explore_plot3", height = "520px")
+                            sliderInput("opacity_slider", "Set opacity", min = 0.0, max = 1.0,
+                                        value = 0.5),
+                            forceNetworkOutput("explore_plot3", height = "520px")
                         )
                  )
                )
