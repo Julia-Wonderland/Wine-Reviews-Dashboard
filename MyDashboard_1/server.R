@@ -4,8 +4,8 @@ shinyServer(function(input, output, session) {
   
   # Overview visualizations
   output$overview_plot1 <- renderPlot({ plot(cars) })
-  output$overview_plot2 <- renderPlot({ hist(rnorm(100)) })
-  
+  output$overview_plot2 <- DT::renderDataTable({overview_plot2(input$aggregations,
+                                                               input$table_colors)})
   # Exploration visualizations
   output$explore_plot1 <- renderPlot({ plot(iris[, 1:2]) })
   output$explore_plot2 <- renderPlot({ boxplot(iris$Sepal.Length ~ iris$Species) })
