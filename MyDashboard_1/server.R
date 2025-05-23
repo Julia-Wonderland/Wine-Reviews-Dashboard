@@ -2,7 +2,7 @@ library(shiny)
 library(plotly)
 
 source("plots/explore_plot1.R")
-wine_data <- read.csv("data/wine_data_emb.csv")
+wine_data <- read.csv("data/wine_data_emb_smaller.csv")
 
 
 
