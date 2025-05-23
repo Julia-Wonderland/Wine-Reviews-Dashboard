@@ -59,12 +59,22 @@ shinyUI(
                  )
                ),
                br(),
+               div(class = "card", 
                fluidRow(
                  column(12,
-                        div(class = "card", 
-                            plotOutput("overview_plot2", height = "300px")
-                        )
+                      column(5, checkboxGroupInput("aggregations", "aggregations", 
+                                                   choices = c("aggregate_wineries", 
+                                                               "aggregate_varieties"),
+                                                   inline = T)),
+                      column(5,checkboxGroupInput("table_colors", "colors", 
+                                                   choices = c("color_points", 
+                                                               "color_price",
+                                                               "color_amount"),
+                                                   inline = T)),
+                      br(),
+                      column(12, DT::dataTableOutput("overview_plot2"))
                  )
+               )
                )
              )
     ),
