@@ -1,7 +1,15 @@
 library(shiny)
 library(plotly)
+library(shinyWidgets)
+library(dplyr)
+library(highcharter)
+#highcharter::hc_add_dependency("modules/drilldown.js")
+
 
 source("plots/explore_plot1.R")
+source("plots/overview_plot1.R")
+source("plots/explore_plot2.R")
+
 wine_data <- read.csv("data/wine_data_emb_smaller.csv")
 
 
@@ -17,6 +25,7 @@ shinyServer(function(input, output, session) {
 })
   
   # Overview visualizations
+  
   output$overview_plot1 <- renderPlot({ plot(cars) })
   output$overview_plot2 <- DT::renderDataTable({overview_plot2(input$aggregations,
                                                                input$table_colors)})
@@ -59,8 +68,11 @@ shinyServer(function(input, output, session) {
   
   
   
-
-  output$explore_plot2 <- renderPlot({ boxplot(iris$Sepal.Length ~ iris$Species) })
+  output$explore_plot2 <- renderHighchart({
+    explore_plot2(wine_data, color_by = input$color_metric)
+  })
+  
+  
   output$explore_plot3 <- renderForceNetwork({ explore_plot3(input$opacity_slider) })
   
   # Comparison plot
@@ -82,6 +94,9 @@ shinyServer(function(input, output, session) {
   })
   
   
+  output$explore_plot2_full <- renderHighchart({
+    explore_plot2(wine_data)
+  })
   
   
   observeEvent(input$fullscreen2, {
@@ -90,9 +105,10 @@ shinyServer(function(input, output, session) {
       size = "l",
       easyClose = TRUE,
       footer = NULL,
-      plotOutput("explore_plot2", height = "600px")
+      highchartOutput("explore_plot2_full", height = "600px")
     ))
   })
+  
   
   observeEvent(input$fullscreen3, {
     showModal(modalDialog(

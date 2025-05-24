@@ -11,7 +11,7 @@ explore_plot1 <- function(data, color_by = "price", color_low = "blue", color_hi
   if (is.numeric(data[[color_by]])) {
     p <- p + scale_color_gradient(low = color_low, high = color_high)
   } else {
-    p <- p + scale_color_brewer(palette = "Set1")  # categorical colors, ignores color_low/high
+    p <- p + scale_color_brewer(palette = "Set1")
   }
   return(p)
 }
