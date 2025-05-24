@@ -3,7 +3,6 @@ overview_plot2 <- function(aggregations, colors) {
   color_names_list <- c("color_points" = "points", "color_price" = "price",
                         "color_amount" = "amount_of_wines")
   names <- c("aggregate_wineries" = "winery", "aggregate_varieties" = "variety")
-  s
   if(length(aggregations) == 1){
     my_str = toString(names[aggregations[0:1]])
       first_row <- display_data %>% group_by(across(all_of(my_str))) %>% 
