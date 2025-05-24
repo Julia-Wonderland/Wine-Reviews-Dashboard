@@ -1,5 +1,5 @@
 overview_plot2 <- function(aggregations, colors) {
-  display_data <- wine_data
+  display_data <- grouped_wine_data
   color_names_list <- c("color_points" = "points", "color_price" = "price",
                         "color_amount" = "amount_of_wines")
   names <- c("aggregate_wineries" = "winery", "aggregate_varieties" = "variety")
