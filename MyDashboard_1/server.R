@@ -1,13 +1,65 @@
 library(shiny)
+library(plotly)
+
+source("plots/explore_plot1.R")
+wine_data <- read.csv("data/wine_data_emb_smaller.csv")
+
+
+
+
 
 shinyServer(function(input, output, session) {
+  wine_data_sample <- reactive({
+  req(input$sample_size)
+  sample_n <- min(input$sample_size, nrow(wine_data)) # safeguard
+  
+  wine_data[sample(nrow(wine_data), sample_n), ]
+})
   
   # Overview visualizations
   output$overview_plot1 <- renderPlot({ plot(cars) })
   output$overview_plot2 <- DT::renderDataTable({overview_plot2(input$aggregations,
                                                                input$table_colors)})
   # Exploration visualizations
-  output$explore_plot1 <- renderPlot({ plot(iris[, 1:2]) })
+  output$explore_plot1 <- renderPlot({
+    explore_plot1(
+      wine_data_sample(),
+      color_by = input$color_by,
+      color_low = input$color_low,
+      color_high = input$color_high
+    )
+  })
+  
+  output$explore_plot1_full <- renderPlotly({
+    p <- explore_plot1(
+      wine_data_sample(),
+      color_by = input$color_by,
+      color_low = input$color_low,
+      color_high = input$color_high
+    )
+    ggplotly(p, source = "full_plot")
+  })
+  
+  
+  
+  output$point_info_full <- renderText({
+    click_data <- event_data("plotly_click", source = "full_plot")
+    if (is.null(click_data)) {
+      return("Click on a point to see details")
+    }
+    
+    # Find nearest point by x and y
+    clicked_point <- wine_data_sample()[
+      which.min((wine_data_sample()$tsne_x - click_data$x)^2 + (wine_data_sample()$tsne_y - click_data$y)^2),
+    ]
+    
+    
+    paste0("Description: ", clicked_point$description)
+  })
+  
+  
+  
+
   output$explore_plot2 <- renderPlot({ boxplot(iris$Sepal.Length ~ iris$Species) })
   output$explore_plot3 <- renderForceNetwork({ explore_plot3(input$opacity_slider) })
   
@@ -21,9 +73,16 @@ shinyServer(function(input, output, session) {
       size = "l",
       easyClose = TRUE,
       footer = NULL,
-      plotOutput("explore_plot1", height = "600px")
+      tagList(
+        plotlyOutput("explore_plot1_full", height = "600px"),
+              verbatimTextOutput("point_info_full")
+        
+      )
     ))
   })
+  
+  
+  
   
   observeEvent(input$fullscreen2, {
     showModal(modalDialog(
@@ -41,8 +100,31 @@ shinyServer(function(input, output, session) {
       size = "l",
       easyClose = TRUE,
       footer = NULL,
-      plotOutput("explore_plot3", height = "600px")
+      forceNetworkOutput("explore_plot3", height = "600px")
     ))
   })
+  
+  
+  
+  output$point_info <- renderText({
+    req(input$plot_click)  # only run if there's a click
+    
+    clicked_point <- nearPoints(
+      wine_data_sample(),
+      input$plot_click,
+      xvar = "tsne_x",
+      yvar = "tsne_y",
+      threshold = 10,
+      maxpoints = 1
+    )
+    
+    
+    if (nrow(clicked_point) == 0) {
+      "Click on a point to see details"
+    } else {
+      paste0("Description: ", clicked_point$description)
+    }
+  })
+  
   
 })

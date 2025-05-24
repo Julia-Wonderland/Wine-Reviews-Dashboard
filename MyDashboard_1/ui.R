@@ -85,9 +85,26 @@ shinyUI(
                h2("Data Exploration"),
                fluidRow(
                  column(6,
-                        div(class = "card", 
+                        div(class = "card",
                             actionButton("fullscreen1", "Fullscreen"),
-                            plotOutput("explore_plot1", height = "250px")
+                            selectInput(
+                              "color_by",
+                              "Color by:",
+                              choices = c("price", "points", "province","taster_name"),  # adjust to your variables
+                              selected = "price"
+                            ),
+                            selectInput("color_low", "Low Color", choices = colors(), selected = "blue"),
+                            selectInput("color_high", "High Color", choices = colors(), selected = "red"),
+                            sliderInput(
+                              "sample_size", 
+                              "Sample size for exploration:", 
+                              min = 100, max = nrow(wine_data), 
+                              value = 1000, step = 100
+                            ),
+                            plotOutput("explore_plot1", height = "250px", click = "plot_click"),
+                            
+                                verbatimTextOutput("point_info")
+                            
                         ),
                         br(),
                         div(class = "card", 

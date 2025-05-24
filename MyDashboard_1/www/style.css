@@ -59,3 +59,20 @@ h1, h2, h3, h4 {
   margin-bottom: 20px;
 }
 
+.description-text pre {
+  background-color: #ffe6f0 !important; /* pinkish background */
+  padding: 10px 15px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important;
+  font-family: 'Lato', sans-serif !important;
+  color: #800020 !important; /* wine-red */
+  font-size: 14px !important;
+  margin-top: 10px !important;
+  white-space: pre-wrap !important; /* preserve formatting */
+  overflow-wrap: break-word !important; /* wrap long text */
+  border: none !important; /* remove any border */
+}
+
+
+
+
