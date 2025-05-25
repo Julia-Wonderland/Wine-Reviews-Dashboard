@@ -1,24 +1,3 @@
-library(shiny)
-library(shinyWidgets)
-library(dplyr)
-library(highcharter)
-#highcharter::hc_add_dependency("modules/drilldown.js")
-
-
-source("plots/explore_plot1.R")
-source("plots/overview_plot1.R")
-source("plots/explore_plot2.R")
-source("plots/overview_react21.R")
-source("plots/explore_designation_treemap.R")
-
-
-wine_data <- wine_data %>%
-  mutate(
-    price = as.numeric(price),
-    points = as.numeric(points)
-  )
-
-
 shinyServer(function(input, output, session) {
   wine_data_sample <- reactive({
   req(input$sample_size)
@@ -27,6 +6,8 @@ shinyServer(function(input, output, session) {
   wine_data[sample(nrow(wine_data), sample_n), ]
 })
   
+  url <- a("Dataset Source", href = "https://www.kaggle.com/datasets/zynicide/wine-reviews")
+  output$dataset_source <- renderUI(tagList(url))
   # Overview visualizations
   
   # Reactive to prepare table data
@@ -122,8 +103,8 @@ shinyServer(function(input, output, session) {
   # Comparison plot
   output$comparison_plot_1 <- DT::renderDataTable({ comparison_plot_1(input$reviewer_select_1, 
                                                              input$reviewer_select_2) })
-  output$comparison_plot_3 <- renderPlotly({ comparison_plot_3(input$reviewer_select_1, 
-                                                                      input$reviewer_select_2) })
+  output$comparison_plot_3 <- renderPlot({ comparison_plot_3(input$reviewer_select_1, 
+                                                                      input$reviewer_select_2)})
   output$comparison_plot_4 <- renderPlotly({ comparison_plot_4(input$reviewer_select_1, 
                                                                input$reviewer_select_2) })
   output$comparison_plot_2 <- renderPlotly({ comparison_plot_2(input$reviewer_select_1, 

@@ -19,23 +19,24 @@ shinyUI(
     # --- 1. ABOUT PAGE ---
     tabPanel("About",
              fluidPage(
-               h2("Welcome to the Dashboard"),
-               p("This is the top description text."),
-               
+               h2("Welcome to the WineLens"),
+               p("We present vizualizations to show many intresting features of this dataset"),
                # First row: 2 videos
                fluidRow(
                  column(6,
                         div(class = "card", 
                             tags$video(src = "video1.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Feature 1"),
-                            p("Short description of feature 1.")
+                            h4("Overview of wine dataset"),
+                            p("We present interactive datatable, treemap of products in chosen winery
+                               and barplot of price and points for selected winery")
                         )
                  ),
                  column(6,
                         div(class = "card", 
                             tags$video(src = "video2.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Feature 2"),
-                            p("Short description of feature 2.")
+                            h4("Projection of reviews"),
+                            p("We present t-sne projection of reviews, which were earlier
+                              embedded by transformers and projected via tsne")
                         )
                  )
                ),
@@ -45,20 +46,25 @@ shinyUI(
                  column(6,
                         div( class = "card", 
                             tags$video(src = "video3.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Feature 3"),
-                            p("Short description of feature 3.")
+                            h4("Exploration of important features"),
+                            p("We present force-connected network showing varieties sold in similar wineries and treemap of provinces and regions
+                              division")
                         )
                  ),
                  column(6,
                         div( class = "card",
                             tags$video(src = "video4.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Feature 3"),
-                            p("Short description of feature 3.")
+                            h4("Simple comparer of reviewers"),
+                            p("We may choose 2 reviewers, and we will see histogram of point reviews,
+                              Similarity score between them and scatterplot of point/price relationship")
                         )
                  )
                ),
-               
-               p("This is the bottom text providing more context or notes.")
+               p("dataset taken from kaggle, preprocessed by removing nan values
+                 and embeddings creation"),
+               uiOutput("dataset_source"),
+               p("Authors (in alphabetical order):", tags$br(), 
+                 "Julia Mirońska", tags$br(), "Igor Szymczak")
              )
     ),
     
@@ -161,18 +167,18 @@ shinyUI(
                                   choices = reviewers, selected = "None")),
                      column(6, selectInput("reviewer_select_2", "choose reviewer_2:",
                                   choices = reviewers, selected = "None")),
-                     DT::dataTableOutput("comparison_plot_1", height = "350px")
+                     DT::dataTableOutput("comparison_plot_1", height = "400px")
                  )
                ),
                column(6, 
                       div( class = "card",
-                          plotlyOutput("comparison_plot_2", height = "350px"),
+                          plotlyOutput("comparison_plot_2", height = "400px"),
                           align = "center"
                       )
                ),
                column(6, 
                       div(class = "card", 
-                          plotlyOutput("comparison_plot_3", height = "300px")
+                          plotOutput("comparison_plot_3", height = "300px")
                       )
                ),
                column(6, 
