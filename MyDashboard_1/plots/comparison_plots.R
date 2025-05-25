@@ -16,7 +16,6 @@ comparison_plot_3 <- function(reviewer_1, reviewer_2){
           
           review_amount_1 <- as.integer(reviewers_data[, c(reviewer_1)][3])
           review_amount_2 <- as.integer(reviewers_data[, c(reviewer_2)][3])
-          print(typeof(review_amount_1))
           reviewer_1 <- gsub(".", " ", reviewer_1, fixed = T)
           reviewer_2 <- gsub(".", " ", reviewer_2, fixed = T)
           reviewer_1 <- gsub("  ", ". ", reviewer_1, fixed = T)
@@ -33,8 +32,9 @@ comparison_plot_3 <- function(reviewer_1, reviewer_2){
             summarise(point_sum = n(), taster_name = nth(taster_name, 1)) %>%
             mutate(point_sum = point_sum / review_amount_2)
           final <- bind_rows(data_1, data_2)
-          p <- ggplot(final, aes(x = points, y = point_sum, fill = taster_name)) + 
+          ggplot(final, aes(x = points, y = point_sum, fill = taster_name)) + 
                geom_col() + scale_fill_brewer(palette = "Set1") + 
+               ggtitle("Frequency histogram of reviewers scores") +
                theme_minimal()
     }
 }
@@ -80,12 +80,12 @@ comparison_plot_2 <- function(reviewer_1, reviewer_2){
                  else if(similarity < 0.9){"#7BB662"} else {"#006B3D"}
       }
       fig <- plot_ly(domain = list(x = c(0,1), y = c(0, 1)), value = similarity, 
-              title = list(text = "similarity score <br>between reviewers"
+              title = list(text = "similarity score between reviewers"
                            ),
               type = "indicator", mode = "gauge+number", 
               gauge = list( axis = list(range = list(0, 1)),
                             bar = list(color = my_color, thickness = 1)))
-      fig <- fig %>% layout(margin = list(l = 20, r = 20))
+      fig <- fig %>% layout(margin = list(l = 20, r = 20, d = 0))
       fig
   }
 }
