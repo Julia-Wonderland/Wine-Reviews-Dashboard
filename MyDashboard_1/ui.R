@@ -1,7 +1,7 @@
 library(shiny)
 library(highcharter)
 
-source("plots/overview_plot1.R")
+#source("plots/overview_plot1.R")
 
 shinyUI(
   navbarPage(
@@ -130,8 +130,30 @@ shinyUI(
     tabPanel("Comparison",
              fluidPage(
                h2("Comparison View"),
-               div(class = "card", 
-                   plotOutput("comparison_plot", height = "600px")
+               column(8, 
+                 div(class = "card", 
+                     column(6, selectInput("reviewer_select_1", "choose reviewer_1:",
+                                  choices = reviewers, selected = "None")),
+                     column(6, selectInput("reviewer_select_2", "choose reviewer_2:",
+                                  choices = reviewers, selected = "None")),
+                     DT::dataTableOutput("comparison_plot_1", height = "350px")
+                 )
+               ),
+               column(4, 
+                      div( class = "card",
+                          plotlyOutput("comparison_plot_2", height = "350px"),
+                          align = "center"
+                      )
+               ),
+               column(6, 
+                      div(class = "card", 
+                          plotlyOutput("comparison_plot_3", height = "300px")
+                      )
+               ),
+               column(6, 
+                      div(class = "card", 
+                          plotlyOutput("comparison_plot_4", height = "300px")
+                      )
                )
              )
     )

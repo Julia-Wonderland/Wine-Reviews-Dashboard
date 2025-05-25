@@ -6,6 +6,7 @@ library(jsonlite)
 library(networkD3)
 library(DT)
 library(dplyr)
+library(plotly)
 
 source("plots/explore_plot3.R")
 source("plots/overview_plot2.R")

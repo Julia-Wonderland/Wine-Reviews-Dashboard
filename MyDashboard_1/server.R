@@ -1,5 +1,4 @@
 library(shiny)
-library(plotly)
 library(shinyWidgets)
 library(dplyr)
 library(highcharter)
@@ -7,10 +6,8 @@ library(highcharter)
 
 
 source("plots/explore_plot1.R")
-source("plots/overview_plot1.R")
+#source("plots/overview_plot1.R")
 source("plots/explore_plot2.R")
-
-wine_data <- read.csv("data/wine_data_emb_smaller.csv")
 
 
 
@@ -76,7 +73,14 @@ shinyServer(function(input, output, session) {
   output$explore_plot3 <- renderForceNetwork({ explore_plot3(input$opacity_slider) })
   
   # Comparison plot
-  output$comparison_plot <- renderPlot({ plot(mtcars$mpg, mtcars$hp) })
+  output$comparison_plot_1 <- DT::renderDataTable({ comparison_plot_1(input$reviewer_select_1, 
+                                                             input$reviewer_select_2) })
+  output$comparison_plot_3 <- renderPlotly({ comparison_plot_3(input$reviewer_select_1, 
+                                                                      input$reviewer_select_2) })
+  output$comparison_plot_4 <- renderPlotly({ comparison_plot_4(input$reviewer_select_1, 
+                                                               input$reviewer_select_2) })
+  output$comparison_plot_2 <- renderPlotly({ comparison_plot_2(input$reviewer_select_1, 
+                                                               input$reviewer_select_2) })
   
   # Fullscreen modal logic
   observeEvent(input$fullscreen1, {
