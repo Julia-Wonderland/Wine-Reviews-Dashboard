@@ -6,11 +6,17 @@ library(highcharter)
 
 
 source("plots/explore_plot1.R")
-#source("plots/overview_plot1.R")
+source("plots/overview_plot1.R")
 source("plots/explore_plot2.R")
+source("plots/overview_react21.R")
+source("plots/explore_designation_treemap.R")
 
 
-
+wine_data <- wine_data %>%
+  mutate(
+    price = as.numeric(price),
+    points = as.numeric(points)
+  )
 
 
 shinyServer(function(input, output, session) {
@@ -23,9 +29,50 @@ shinyServer(function(input, output, session) {
   
   # Overview visualizations
   
-  output$overview_plot1 <- renderPlot({ plot(cars) })
-  output$overview_plot2 <- DT::renderDataTable({overview_plot2(input$aggregations,
-                                                               input$table_colors)})
+  # Reactive to prepare table data
+  filtered_table_data <- reactive({
+    prepare_table_data(grouped_wine_data, input$aggregations)
+  })
+  
+  # Reactive to get selected winery from the table
+  filtered_table_data <- reactive({
+    prepare_table_data(grouped_wine_data, input$aggregations)
+  })
+  
+  selected_winery <- reactive({
+    sel <- input$overview_plot2_rows_selected
+    if (length(sel) == 0) return(NULL)
+    tbl <- filtered_table_data()
+    
+    # Defensive check: if winery column exists in filtered table
+    if ("winery" %in% colnames(tbl)) {
+      return(tbl$winery[sel])
+    } else {
+      return(NULL)
+    }
+  })
+  
+  output$overview_plot1 <- renderPlot({
+    data_to_plot <- filter_wine_data(wine_data, selected_winery())
+    overview_plot1(data_to_plot, input$hist_var, input$hist_binwidth)
+  })
+  output$designation_treemap <- renderHighchart({
+    selected <- selected_winery()
+    if (is.null(selected)) return(NULL)
+    explore_designation_treemap(wine_data, selected)
+  })
+  
+  
+  output$overview_plot2 <- DT::renderDataTable({
+    display_data <- filtered_table_data()
+    overview_plot2(input$aggregations, input$table_colors, display_data)
+  }, selection = "single")
+  observeEvent(input$aggregations, {
+    DT::dataTableProxy("overview_plot2") %>% selectRows(NULL)
+  })
+  
+  
+  
   # Exploration visualizations
   output$explore_plot1 <- renderPlot({
     explore_plot1(

@@ -55,12 +55,24 @@ shinyUI(
              fluidPage(
                h2("Overview"),
                fluidRow(
-                 column(12,
-                        div(class = "card", 
-                            plotOutput("overview_plot1", height = "300px")
+                 column(6,
+                        div(class = "card",
+                            selectInput("hist_var", "Variable to plot:",
+                                        choices = c("Price" = "price", "Points" = "points"),
+                                        selected = "price"),
+                            
+                            numericInput("hist_binwidth", "Bin width:", value = 5, min = 1, max = 50),
+                            
+                            plotOutput("overview_plot1", height = "400px")
+                        )
+                 ),
+                 column(6,
+                        div(class = "card",
+                            highchartOutput("designation_treemap", height = "548px")
                         )
                  )
                ),
+               
                br(),
                div(class = "card", 
                fluidRow(
@@ -75,7 +87,7 @@ shinyUI(
                                                                "color_amount"),
                                                    inline = T)),
                       br(),
-                      column(12, DT::dataTableOutput("overview_plot2"))
+                      DT::dataTableOutput("overview_plot2")
                  )
                )
                )
