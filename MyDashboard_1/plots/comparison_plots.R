@@ -69,13 +69,16 @@ comparison_plot_2 <- function(reviewer_1, reviewer_2){
                 mutate(points_rev_2 = (points_rev_2 - 80)/20)
       final <- inner_join(data_1, data_2, by = "variety")
       size = min(nrow(data_1), nrow(data_2))
-      print(final)
+      similarity <- NULL
+      my_color <- "red"
+      if(nrow(final) != 0){
       similarity = sum(final$points_rev_1 * final$points_rev_2)
       similarity <- similarity / norm(final$points_rev_1, type = "2")
       similarity <- similarity / norm(final$points_rev_2, type = "2")
       similarity <- similarity / (size / nrow(final))
       my_color = if (similarity < 0.3) {"#D61F1F"} else if(similarity < 0.7) {"#FFD301"} 
                  else if(similarity < 0.9){"#7BB662"} else {"#006B3D"}
+      }
       fig <- plot_ly(domain = list(x = c(0,1), y = c(0, 1)), value = similarity, 
               title = list(text = "similarity score <br>between reviewers"
                            ),
