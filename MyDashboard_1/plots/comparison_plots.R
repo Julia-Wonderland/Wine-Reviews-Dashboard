@@ -49,7 +49,8 @@ comparison_plot_4 <- function(reviewer_1, reviewer_2){
     fig <- plot_ly(data, x = ~points, y = ~price,
                    color = ~taster_name,
                    text = ~paste("winery: ", winery, "<br>variety: ", variety), 
-                   mode = "markers", type = "scatter", colors = "Set1")
+                   mode = "markers", type = "scatter", colors = "Set1") %>%
+              layout(title = "points vs price of wines colored by reviewers")
                   
     fig
   }
