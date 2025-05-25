@@ -47,7 +47,7 @@ overview_plot2 <- function(aggregations, colors, display_data) {
   
   for(color in colors){
     my_str <- color_names_list[color]
-    clrs <- color_scale_1 # Make sure this is defined
+    clrs <- color_scale_1
     brks <- quantile(display_data[[my_str]], probs = seq(.15, .85, .14), na.rm = TRUE)
     final <- final %>% formatStyle(my_str, 
                                    backgroundColor = styleInterval(brks, clrs))
