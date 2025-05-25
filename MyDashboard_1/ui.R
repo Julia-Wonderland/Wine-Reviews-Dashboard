@@ -22,26 +22,38 @@ shinyUI(
                h2("Welcome to the Dashboard"),
                p("This is the top description text."),
                
+               # First row: 3 videos
                fluidRow(
-                 column(4,
+                 column(6,
                         div(class = "card", 
                             tags$video(src = "video1.mp4", type = "video/mp4", controls = NA, width = "100%"),
                             h4("Feature 1"),
                             p("Short description of feature 1.")
                         )
                  ),
-                 column(4,
+                 column(6,
                         div(class = "card", 
                             tags$video(src = "video2.mp4", type = "video/mp4", controls = NA, width = "100%"),
                             h4("Feature 2"),
                             p("Short description of feature 2.")
                         )
-                 ),
-                 column(4,
-                        div(class = "card", 
+                 )
+               ),
+               
+               # Second row: 2 videos
+               fluidRow(
+                 column(6,
+                        div( class = "card", 
                             tags$video(src = "video3.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Feature 3"),
-                            p("Short description of feature 3.")
+                            h4("Feature 4"),
+                            p("Short description of feature 4.")
+                        )
+                 ),
+                 column(6,
+                        div( class = "card",
+                            tags$video(src = "video4.mp4", type = "video/mp4", controls = NA, width = "100%"),
+                            h4("Feature 5"),
+                            p("Short description of feature 5.")
                         )
                  )
                ),
@@ -49,6 +61,7 @@ shinyUI(
                p("This is the bottom text providing more context or notes.")
              )
     ),
+    
     
     # --- 2. OVERVIEW PAGE ---
     tabPanel("Overview",
