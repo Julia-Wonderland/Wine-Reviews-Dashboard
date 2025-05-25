@@ -2,7 +2,7 @@ explore_plot1 <- function(data, color_by = "price", color_low = "blue", color_hi
   p <- ggplot(data, aes_string(x = "tsne_x", y = "tsne_y", color = color_by)) +
     geom_point(size = 2, alpha = alpha) +
     labs(
-      title = "Wine Visualization via t-SNE",
+      title = "Wine reviews descriptions visualization via t-SNE",
       x = "t-SNE X", y = "t-SNE Y",
       color = color_by
     ) +
