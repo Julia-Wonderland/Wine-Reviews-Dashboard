@@ -10,7 +10,7 @@ prepare_table_data <- function(grouped_wine_data, aggregations) {
   mapping <- c("aggregate_wineries" = "winery", "aggregate_varieties" = "variety")
   
   if (length(aggregations) == 1) {
-    agg_name <- mapping[aggregations]
+    agg_name <- toString(mapping[aggregations])
     first_row <- display_data %>%
       group_by(across(all_of(agg_name))) %>%
       filter(row_number() == 1) %>%
@@ -22,7 +22,6 @@ prepare_table_data <- function(grouped_wine_data, aggregations) {
                 price = mean(price, na.rm = TRUE), 
                 amount_of_wines = sum(amount_of_wines, na.rm = TRUE), 
                 .groups = "drop")
-    
     display_data <- merge(display_data, first_row, by = agg_name)
   }
   

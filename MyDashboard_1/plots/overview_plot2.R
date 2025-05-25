@@ -6,14 +6,13 @@ overview_plot2 <- function(aggregations, colors, display_data) {
   mapping <- c("aggregate_wineries" = "winery", "aggregate_varieties" = "variety")
   
   if(length(aggregations) == 1){
-    my_str <- mapping[aggregations]
+    my_str <- toString(mapping[aggregations])
     first_row <- display_data %>% group_by(across(all_of(my_str))) %>% 
       filter(row_number()==1) %>% select(all_of(my_str), "description")
     
     display_data <- display_data %>% group_by(across(all_of(my_str))) %>% 
       summarise(points = mean(points, na.rm=TRUE), price = mean(price, na.rm=TRUE), 
-                amount_of_wines = sum(amount_of_wines, na.rm=TRUE), .groups = "drop")
-    
+                amount_of_wines = sum(amount_of_wines, na.rm=TRUE))
     display_data <- merge(display_data, first_row, by = my_str)
   }
   
