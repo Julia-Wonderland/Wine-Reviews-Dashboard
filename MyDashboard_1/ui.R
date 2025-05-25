@@ -22,7 +22,7 @@ shinyUI(
                h2("Welcome to the Dashboard"),
                p("This is the top description text."),
                
-               # First row: 3 videos
+               # First row: 2 videos
                fluidRow(
                  column(6,
                         div(class = "card", 
@@ -45,15 +45,15 @@ shinyUI(
                  column(6,
                         div( class = "card", 
                             tags$video(src = "video3.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Feature 4"),
-                            p("Short description of feature 4.")
+                            h4("Feature 3"),
+                            p("Short description of feature 3.")
                         )
                  ),
                  column(6,
                         div( class = "card",
                             tags$video(src = "video4.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Feature 5"),
-                            p("Short description of feature 5.")
+                            h4("Feature 3"),
+                            p("Short description of feature 3.")
                         )
                  )
                ),
@@ -155,7 +155,7 @@ shinyUI(
     tabPanel("Comparison",
              fluidPage(
                h2("Comparison View"),
-               column(8, 
+               column(6, 
                  div(class = "card", 
                      column(6, selectInput("reviewer_select_1", "choose reviewer_1:",
                                   choices = reviewers, selected = "None")),
@@ -164,7 +164,7 @@ shinyUI(
                      DT::dataTableOutput("comparison_plot_1", height = "350px")
                  )
                ),
-               column(4, 
+               column(6, 
                       div( class = "card",
                           plotlyOutput("comparison_plot_2", height = "350px"),
                           align = "center"
