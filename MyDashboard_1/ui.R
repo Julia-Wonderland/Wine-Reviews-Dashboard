@@ -6,8 +6,8 @@ library(highcharter)
 shinyUI(
   navbarPage(
     title = div(
-      tags$img(src = "logo.png", height = "40px", style = "border-radius: 50%; margin-right: 10px;"),
-      "My Dashboard", tags$head(
+      tags$img(src = "logo.png", height = "30px", style = "border-radius: 50%; margin-right: 10px;"),
+      "WineLens", tags$head(
         tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
         tags$link(rel = "stylesheet", href = "https://fonts.googleapis.com/css2?family=Lato&display=swap")
       )
