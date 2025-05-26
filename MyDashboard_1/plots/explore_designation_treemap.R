@@ -8,8 +8,7 @@ explore_designation_treemap <- function(wine_data, selected_winery) {
     filter(winery == selected_winery) %>%
     mutate(designation = ifelse(is.na(designation) | designation == "", "Unknown", designation)) %>%
     count(designation, name = "value") %>%
-    arrange(desc(value)) %>%
-    head(30)  # Limit to top 30 for readability
+    arrange(desc(value))
   
   hc_data <- lapply(1:nrow(data_filtered), function(i) {
     list(

@@ -20,23 +20,22 @@ shinyUI(
     tabPanel("About",
              fluidPage(
                h2("Welcome to the WineLens"),
-               p("We present vizualizations to show many intresting features of this dataset"),
+               p("We present vizualizations to show many interesting features of this dataset, as well us unable users to explore the data by themselves and discover new properties"),
                # First row: 2 videos
                fluidRow(
                  column(6,
                         div(class = "card", 
                             tags$video(src = "video1.mp4", type = "video/mp4", controls = NA, width = "100%"),
                             h4("Overview of wine dataset"),
-                            p("We present interactive datatable, treemap of products in chosen winery
-                               and barplot of price and points for selected winery")
+                            p("We present interactive datatable, treemap of designations in chosen winery
+                               and barplot of price and points for selected winery and for for wineries together")
                         )
                  ),
                  column(6,
                         div(class = "card", 
                             tags$video(src = "video2.mp4", type = "video/mp4", controls = NA, width = "100%"),
                             h4("Projection of reviews"),
-                            p("We present t-sne projection of reviews, which were earlier
-                              embedded by transformers and projected via tsne")
+                            p("We present t-sne projection of reviews - we obtained the embeddings via SentenceTransformer - all-MiniLM-L6-v2, latter we projected the embdding into 2D with t-SNE")
                         )
                  )
                ),
