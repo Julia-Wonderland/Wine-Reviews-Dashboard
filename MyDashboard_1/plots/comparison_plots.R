@@ -35,7 +35,8 @@ comparison_plot_3 <- function(reviewer_1, reviewer_2){
           ggplot(final, aes(x = points, y = point_sum, fill = taster_name)) + 
                geom_col() + scale_fill_brewer(palette = "Set1") + 
                ggtitle("Frequency histogram of reviewers scores") +
-               theme_minimal()
+               theme_minimal() + 
+               theme(plot.title = element_text(size = 18))
     }
 }
 
