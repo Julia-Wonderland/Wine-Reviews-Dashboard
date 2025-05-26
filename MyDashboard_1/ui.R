@@ -35,7 +35,10 @@ shinyUI(
                         div(class = "card", 
                             tags$video(src = "video2.mp4", type = "video/mp4", controls = NA, width = "100%"),
                             h4("Projection of reviews"),
-                            p("We present t-sne projection of reviews - we obtained the embeddings via SentenceTransformer - all-MiniLM-L6-v2, latter we projected the embdding into 2D with t-SNE")
+                            p("We present t-sne projection of reviews - 
+                              we obtained the embeddings via SentenceTransformer
+                              - all-MiniLM-L6-v2, latter we projected the 
+                              embedding into 2D with t-SNE")
                         )
                  )
                ),
@@ -46,14 +49,15 @@ shinyUI(
                         div( class = "card", 
                             tags$video(src = "video3.mp4", type = "video/mp4", controls = NA, width = "100%"),
                             h4("Exploration of important features"),
-                            p("We present force-connected network showing varieties sold in similar wineries and treemap of provinces and regions
-                              division")
+                            p("We present force-connected network showing varieties as nodes,
+                            having links when sold in similar wineries and 
+                            treemap of provinces and regionsdivision")
                         )
                  ),
                  column(6,
                         div( class = "card",
                             tags$video(src = "video4.mp4", type = "video/mp4", controls = NA, width = "100%"),
-                            h4("Simple comparer of reviewers"),
+                            h4("Comparer of reviewers"),
                             p("We may choose 2 reviewers, and we will see histogram of point reviews,
                               Similarity score between them and scatterplot of point/price relationship")
                         )
